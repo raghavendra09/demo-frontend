@@ -16,7 +16,7 @@ jobs:
           repo: demobackend
           github_token: ${{ secrets.G_ACCESS_TOKEN }}
           workflow_file_name: deploy.yml
-          ref: A
+          ref: ${{ github.event.repository.default_branch }}
       - name: Deploy Web App
         run: |
           echo "Deploy Web App"
