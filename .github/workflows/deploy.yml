@@ -1,26 +1,21 @@
 name: Deploy
 on:
   push
+
+
 jobs:
-  build:
-    name: Run Web App
+  trigger-workflow:
     runs-on: ubuntu-latest
 
-    env:
-      GIT_COMMIT_HASH: ${GITHUB_REF##*/}
-
-    steps:
-      - name: Build Web App
-        run: |
-          echo "Build Web App"
-      - uses: convictional/trigger-workflow-and-wait@v1.3.0
-        with:
-          owner: raghavendra09
-          repo: demobackend
-          github_token: ${{ secrets.G_ACCESS_TOKEN }}
-          workflow_file_name: deploy.yml
-          ref: ${GIT_COMMIT_HASH}
-      - name: Deploy Web App
+  steps:
+    - name: Trigger workflow in second repository
+      run: |
+        curl -X POST \
+          https://api.github.com/repos/raghavendra09/demo-frontend/actions/workflows/deploy.yml/dispatches \
+          -H "Authorization: Bearer ${{ secrets.G_ACCESS_TOKEN }}" \
+          -d '{"ref":"${{ github.ref }}", "inputs": {"branch": "${{ github.ref }}", "version": "1.0.0"}}'
+    
+    - name: Deploy Web App
         run: |
           echo "Deploy Web App"
           echo ${GITHUB_REF##*/}
