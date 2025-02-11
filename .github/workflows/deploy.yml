@@ -19,7 +19,7 @@ jobs:
           repo: demobackend
           github_token: ${{ secrets.G_ACCESS_TOKEN }}
           workflow_file_name: deploy.yml
-          ref: echo ${GIT_COMMIT_HASH}
+          ref: ${GIT_COMMIT_HASH}
       - name: Deploy Web App
         run: |
           echo "Deploy Web App"
