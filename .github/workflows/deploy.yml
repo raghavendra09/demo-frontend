@@ -11,7 +11,7 @@ jobs:
     - name: Trigger workflow in second repository
       run: |
         curl -X POST \
-          https://api.github.com/repos/raghavendra09/demo-frontend/actions/workflows/deploy.yml/dispatches \
+          https://api.github.com/repos/raghavendra09/demobackend/actions/workflows/deploy.yml/dispatches \
           -H "Authorization: Bearer ${{ secrets.G_ACCESS_TOKEN }}" \
           -d '{"ref":"${{ github.ref }}", "inputs": {"branch": "${{ github.ref }}", "version": "1.0.0"}}'
     
